@@ -1,5 +1,6 @@
 <?php
-include "moto.php";
+include_once "moto.php";
+include_once "cliente.php";
 /**1. Se registra la siguiente información: número, fecha, referencia al cliente, referencia a una colección de
 motos y el precio final.*/
 class Venta{
@@ -8,9 +9,8 @@ class Venta{
     private $referenciaCliente;
     private $referenciaColcMotos;
     private $precioFinal;
-/*2. Método constructor que recibe como parámetros cada uno de los valores a ser asignados a cada
-atributo de la clase.
- */
+    /*2. Método constructor que recibe como parámetros cada uno de los valores a ser asignados a cada
+    atributo de la clase.*/
     public function __construct($num, $fech,$refeClien,$refeColecMot,$precFin){
         $this->numero = $num;
         $this->fecha = $fech;
@@ -18,7 +18,7 @@ atributo de la clase.
         $this->referenciaColcMotos = $refeColecMot;
         $this->precioFinal = $precFin;
     }
-/**3. Los métodos de acceso de cada uno de los atributos de la clase.*/
+    /**3. Los métodos de acceso de cada uno de los atributos de la clase.*/
     public function getNumero(){
         return $this->numero;
     }
@@ -46,8 +46,14 @@ atributo de la clase.
     }
     /*4. Redefinir el método _toString para que retorne la información de los atributos de la clase. */
     public function __toString(){
-        return "Numero de Venta: ".$this->getNumero()."\nFecha: ".$this->getFecha()."\nCliente: ".$this->getReferenciaCliente().
-        "\nColeccion de Motos: ".$this->getReferenciaColcMotos()."\nPresio final: ".$this->getPrecioFinal(); 
+        $inf="Numero de Venta: ".$this->getNumero()."\nFecha: ".$this->getFecha()."\nCliente: ".$this->getReferenciaCliente().
+        "\nColeccion de Motos: \n";
+        for($i=0;$i<count($this->getReferenciaColcMotos());$i++){
+            $inf.= "Moto ".($i+1).":\n".$this->getReferenciaColcMotos()[$i].
+            "\n**************************************************\n";
+        } 
+        $inf .= "Presio Final: ".$this->getPrecioFinal();
+        return $inf;
     }
     /**5. Implementar el método incorporarMoto($objMoto) que recibe por parámetro un objeto moto y lo
      * incorpora a la colección de motos de la venta, siempre y cuando sea posible la venta. El método cada
@@ -60,7 +66,7 @@ atributo de la clase.
             $np = count($this->getReferenciaColcMotos());
             $nuevaCol[$np]= $objMoto;
             $this->setReferenciaColcMotos($nuevaCol);
-            $this->getPrecioFinal($venta);
+            $this->setPrecioFinal($venta);
             $resp = true;
         }else{
             $resp = false;

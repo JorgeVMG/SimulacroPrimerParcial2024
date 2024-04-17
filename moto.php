@@ -3,7 +3,7 @@
  * incremento anual, activa (atributo que va a contener un valor true, si la moto está disponible para 
  * laventa y false en caso contrario).
  */
-class moto{
+class Moto{
     private $codigo;
     private $costo;
     private $anioFabricacion;
@@ -44,6 +44,9 @@ class moto{
     public function getActiva(){
         return $this->activa;
     }
+    public function setActiva($act){
+        $this->activa=$act;
+    }
     /*4. Redefinir el método toString para que retorne la información de los atributos de la clase.*/
     public function __toString(){
         return "Codigo de Moto: ".$this->getCodigo()."\nCosto: ".$this->getCosto()."\nAño de fabricacion: ".$this->getAnioFabricacion().
@@ -58,7 +61,9 @@ class moto{
      * por_inc_anual: porcentaje de incremento anual de la moto. */
     public function darPrecioVenta(){
         if($this->getActiva()==true){
-            $venta = $this->getCosto() + ($this->getCosto()*($this->getAnioFabricacion()*$this->getPorcentajeAnual()));
+            $anio = 2024 - $this->getAnioFabricacion();
+            $venta = $this->getCosto() + ($this->getCosto()*($anio*$this->getPorcentajeAnual()));
+            $this->setActiva(false);
         }else{
             $venta = -1;
         }

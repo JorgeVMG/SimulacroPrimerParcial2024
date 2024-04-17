@@ -34,6 +34,13 @@ class Cliente{
         return $this->numeroDocumento;
     }
     public function __toString(){
-        return "Nombre y Apellido: ".$this->getNombre()." ".$this->getApellido()."\nEstado: ".$this->getEstado()."\nTipo: ".$this->getTipo()."\nNumero De Documento: ".$this->getNumeroDocumento();
+        $inf = "Nombre y Apellido: ".$this->getNombre()." ".$this->getApellido()."\nEstado: ";
+        if($this->getEstado()==true){
+            $inf .= "No dado de baja\n";
+        }else{
+            $inf .= "Dado de baja\n";
+        }
+        $inf .= "Tipo: ".$this->getTipo()."\nNumero De Documento: ".$this->getNumeroDocumento();
+        return $inf;
     }
 }
